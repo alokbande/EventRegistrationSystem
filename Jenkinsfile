@@ -35,7 +35,7 @@ pipeline {
 		}
 		stage ('deploy'){
 			steps {
-				bat '''copy C:\\Program Files (x86)\\Jenkins\\workspace\\EventRegistrationSystem\\target\\*.war F:\\Program Files\\Apache Software Foundation\\Tomcat 8.0\\webapps\\'''
+				bat '''copy C:\\Program Files (x86)\\Jenkins\\workspace\\EventRegistrationSystem_Pipeline\\target\\*.war F:\\Program Files\\Apache Software Foundation\\Tomcat 8.0\\webapps\\'''
             }
 		}
 	}
