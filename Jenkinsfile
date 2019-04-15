@@ -33,6 +33,11 @@ pipeline {
             }
 			
 		}
+		stage('Sonar scan execution') {
+            steps {
+                bat "'${M2_HOME}/bin/mvn'  verify sonar:sonar -Dintegration-tests.skip=true -Dmaven.test.failure.ignore=true"
+            }
+        }
 		stage ('deploy'){
 			steps {
 				bat '''copy C:\\Users\\sbande\\Desktop\\201\\Jenkins\\slaves\\workspace\\EventRegistrationSystem_Pipeline\\target\\EventRegistrationSystem.war C:\\Users\\sbande\\Desktop\\201\\Jenkins\\Tomcat8\\webapps\\'''
