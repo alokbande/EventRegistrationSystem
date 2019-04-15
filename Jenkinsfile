@@ -28,11 +28,15 @@ pipeline {
             }
         }
 		stage('artifact') {
-			archive 'target/*.war'
+			steps {
+				archive 'target/*.war'
+            }
+			
 		}
 		stage ('deploy'){
-			echo 'deployment started'
+			steps {
 				bat '''copy C:\\Program Files (x86)\\Jenkins\\workspace\\EventRegistrationSystem\\target\\*.war F:\\Program Files\\Apache Software Foundation\\Tomcat 8.0\\webapps\\'''
+            }
 		}
 	}
 }
