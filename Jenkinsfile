@@ -35,7 +35,7 @@ pipeline {
 		}
 		stage('Sonar scan execution') {
             steps {
-                bat "'${M2_HOME}/bin/mvn'  verify sonar:sonar -Dintegration-tests.skip=true -Dmaven.test.failure.ignore=true"
+                bat "mvn verify sonar:sonar -Dintegration-tests.skip=true -Dmaven.test.failure.ignore=true"
             }
         }
 		stage ('deploy'){
