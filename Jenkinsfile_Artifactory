@@ -17,20 +17,7 @@ pipeline {
                 '''
             }
         }
-		stage ('Artifactory configuration') {
-			steps {
-				script {
-					rtMaven.tool = M2_HOME // Tool name from Jenkins configuration
-					rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: server
-					rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
-					rtMaven.deployer.deployArtifacts = false // Disable artifacts deployment during Maven run
-					buildInfo = Artifactory.newBuildInfo()
-					buildInfo.env.capture = true
-				}
-			}
-			
-		}
-        stage('clean') {
+		stage('clean') {
             steps {
 				bat 'mvn clean'
 			}
@@ -51,18 +38,32 @@ pipeline {
             }
 			
 		}
+		stage ('Artifactory configuration') {
+			steps {
+				script {
+					rtMaven.tool = M2_HOME // Tool name from Jenkins configuration
+					rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: server
+					rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
+					rtMaven.deployer.deployArtifacts = false // Disable artifacts deployment during Maven run
+					buildInfo = Artifactory.newBuildInfo()
+					buildInfo.env.capture = true
+				}
+			}
+			
+		}
 		stage ('deploy'){
 			steps {
 				bat '''copy C:\\Users\\sbande\\Desktop\\201\\Jenkins\\slaves\\workspace\\EventRegistrationSystem_Pipeline_Artifactory\\target\\EventRegistrationSystem.war C:\\Users\\sbande\\Desktop\\201\\Jenkins\\Tomcat8\\webapps\\'''
             }
 		}
 		stage ('Publish build info') {
-            steps {
-                rtPublishBuildInfo (
-                    serverId: "ARTIFACTORY_SERVER"
-                )
-            }
-        }
+			steps {
+				script {
+					server.publishBuildInfo buildInfo
+				}
+			}
+			
+		}
 	}
 	
 }
