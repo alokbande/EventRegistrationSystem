@@ -1,13 +1,13 @@
 pipeline {
-	def server = ''
-    def buildInfo = '' 
-    def rtMaven = ''
-    agent {
+	agent {
         label "QA"
     }
 	environment {
         EMAIL_RECIPIENTS = 'shantu.bande@gmail.com'
     }
+	def server = Artifactory.server 'ARTIFACTORY_SERVER'
+    def rtMaven = Artifactory.newMavenBuild()
+    def rtMaven = ''
     stages {
         stage ('Initialize') {
             steps {
@@ -40,8 +40,6 @@ pipeline {
 			
 		}
 		stage ('Artifactory configuration') {
-			server = Artifactory.server SERVER_ID
-			rtMaven = Artifactory.newMavenBuild()
 			rtMaven.tool = M2_HOME // Tool name from Jenkins configuration
 			rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: server
 			rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
