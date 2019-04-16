@@ -7,7 +7,7 @@ pipeline {
     }
 	def server = Artifactory.server 'ARTIFACTORY_SERVER'
     def rtMaven = Artifactory.newMavenBuild()
-    def rtMaven = ''
+    def buildInfo
     stages {
         stage ('Initialize') {
             steps {
