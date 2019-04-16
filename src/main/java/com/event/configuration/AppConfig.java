@@ -17,7 +17,7 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.event")
-public class AppConfig extends WebMvcConfigurerAdapter 
+public class AppConfig extends WebMvcConfigurerAdapter {
 	
 	@Bean
 	public ViewResolver viewResolver() {
