@@ -1,12 +1,12 @@
 pipeline {
-	def server
-    def buildInfo
-    def rtMaven
-    agent {
+	agent {
         label "QA"
     }
 	environment {
         EMAIL_RECIPIENTS = 'shantu.bande@gmail.com'
+		def server
+		def buildInfo
+		def rtMaven
     }
     stages {
         stage ('Initialize') {
