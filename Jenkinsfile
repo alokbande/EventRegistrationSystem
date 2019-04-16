@@ -18,20 +18,11 @@ pipeline {
         stage('clean') {
             steps {
 				bat 'mvn clean'
-				archive includes: 'pkg/*.gem'
 			}
         }
         stage("Unit testing") { 
 			steps {
-				bat 'mvn test'
-				publishHTML target: [
-					allowMissing: false,
-					alwaysLinkToLastBuild: false,
-					keepAll: true,
-					reportDir: 'coverage',
-					reportFiles: 'index.html',
-					reportName: 'TestCoverage Report'
-				]
+				bat 'mvn test'           
 			}			
 		}
         stage('package') {
