@@ -1,3 +1,6 @@
+def server = Artifactory.server 'ARTIFACTORY_SERVER'
+def rtMaven = Artifactory.newMavenBuild()
+def buildInfo
 pipeline {
 	agent {
         label "QA"
@@ -5,10 +8,7 @@ pipeline {
 	environment {
         EMAIL_RECIPIENTS = 'shantu.bande@gmail.com'
     }
-	def server = Artifactory.server 'ARTIFACTORY_SERVER'
-    def rtMaven = Artifactory.newMavenBuild()
-    def buildInfo
-    stages {
+	stages {
         stage ('Initialize') {
             steps {
                 bat '''
