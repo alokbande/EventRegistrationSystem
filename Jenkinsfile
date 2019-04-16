@@ -22,7 +22,11 @@ pipeline {
         }
         stage("Unit testing") { 
 			steps {
-				bat 'mvn test'           
+				script {
+					bat 'mvn test' 
+					junit '**//*target/surefire-reports/TEST-*.xml' 
+                    archive 'target*//*.jar'
+				}        
 			}			
 		}
         stage('package') {
